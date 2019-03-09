@@ -5,7 +5,8 @@ export default class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      project: []
+      project: [],
+      actions: []
     }
   }
 
@@ -14,7 +15,10 @@ export default class Project extends Component {
     axios.get(`http://localhost:8000/api/projects/${id}`)
       .then(response => {
         console.log(response.data)
-        this.setState({ project: response.data})
+        this.setState({
+          project: response.data,
+          actions: response.data.actions
+        })
       })
       .catch(err => {
         console.log(err);
@@ -24,7 +28,14 @@ export default class Project extends Component {
   render() {
     return (
       <div>
-        {this.state.project.name}
+        <h2>{this.state.project.name}</h2>
+        <p>{this.state.project.description}</p>
+        <ul>
+          {this.state.actions.map(action => (
+            <li key={action.id}>{action.description}</li>
+          ))}
+        </ul>
+        {/* {this.state.project.actions.description} */}
       </div>
     )
   }
