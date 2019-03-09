@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import ProjectList from './components/ProjectList';
+import Project from './components/Project';
+
+import { Route } from 'react-router-dom';
 
 
 import './App.css';
@@ -25,9 +29,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.projects.map(project => (
-          <div key={project.id}>{project.name}</div>
-        ))}
+        <Route 
+          exact path="/" 
+          render={props => (
+            <ProjectList projects={this.state.projects} />
+          )} />
+
+          <Route 
+            path="/projects/:id"
+            render={props => (
+              <Project projects={this.state.projects} {...props} />
+            )}
+          />
       </div>
     );
   }
