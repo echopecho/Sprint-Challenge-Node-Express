@@ -79,6 +79,6 @@ router.delete('/:id', async (req, res) => {
   } catch (e) {
     res.status(500).json({err: "Something went wrong with the server."})
   }
-})
+});
 
 module.exports = router;
